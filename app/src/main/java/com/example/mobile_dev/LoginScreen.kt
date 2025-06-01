@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.example.mobile_dev.R
 
 @Composable
-fun LoginScreen(onSignUpClick: () -> Unit) {
+fun LoginScreen(onSignUpClick: () -> Unit,onLoginSuccess :() -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -81,9 +81,7 @@ fun LoginScreen(onSignUpClick: () -> Unit) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = {
-                // TODO: Add login logic
-            },
+            onClick = onLoginSuccess,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
@@ -94,7 +92,7 @@ fun LoginScreen(onSignUpClick: () -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedButton(
-            onClick = onSignUpClick, // <-- This now works
+            onClick = onSignUpClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)

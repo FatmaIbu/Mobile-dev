@@ -18,7 +18,7 @@ import com.example.mobile_dev.R
 @Composable
 fun SignUpScreen(
     onSignUpClick: () -> Unit,
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }

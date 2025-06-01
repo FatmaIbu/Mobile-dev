@@ -35,15 +35,56 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("login") {
                             LoginScreen(
-                                onSignUpClick = { navController.navigate("signup") }
-                            )
+                                onSignUpClick = { navController.navigate("signup") },
+                                onLoginSuccess = { navController.navigate("home") })
                         }
                         composable("signup") {
                             SignUpScreen(
-                                onSignUpClick = { /* handle sign-up logic */ },
+                                onSignUpClick = { navController.navigate("home") },
                                 onLoginClick = { navController.navigate("login") }
                             )
                         }
+                        composable("home") {
+                            HomeScaffold(
+                                currentRoute = "home",
+                                onNavItemSelected = { route ->
+                                    when (route) {
+                                        "Home" -> {} // Already on home
+                                        "Calendar" -> navController.navigate("calendar")
+                                        "Profile" -> navController.navigate("profile")
+                                    }
+                                },
+                                onAddTaskClick = { navController.navigate("addtask") }
+
+                            )
+                        }
+                        composable("tasks") {
+                            TasksScreen()
+                        }
+                        composable("addtask") {
+                            AddTaskScreen(
+                                onSaveClick = { task ->
+                                    // You can add logic to save task to a shared ViewModel later
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable("profile") {
+                            ProfileScreen(
+                                onLogoutClick = {
+                                    navController.navigate("login") {
+                                        popUpTo("home") { inclusive = true }
+                                    }
+                                }
+                            )
+                        }
+                        composable("calendar") {
+                            CalendarScreen()
+                        }
+
+                        /*
+                                                composable("calendar") { CalendarScreen() }
+                                                composable("profile") { ProfileScreen() }*/
                     }
                 }
             }
@@ -52,10 +93,18 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun OnboardingPreview() {
     MobiledevTheme {
         OnboardingScreen(onStartClick = {})
+    }
+}
+*/
+@Preview(showBackground = true)
+@Composable
+fun OnboardingPreview() {
+    MobiledevTheme {
+        HomeScreen()
     }
 }
